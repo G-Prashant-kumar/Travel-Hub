@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Place Search and Attractions</title>
+    <link rel="stylesheet" href="../style.css">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: url('../images/hotels2.jpg') no-repeat center center fixed;
+            background-size: cover;
+            color: #b29d9d;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #fff;
+            background-color: #e04b55;
+            padding: 1%;
+        }
+        .content {
+            background-color: rgb(255, 255, 255);
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            margin: 0 auto;
+            color: #333;
+        }
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+            font-size: 16px;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #ff5361;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            padding: 12px;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #e04b55;
+        }
+        .attraction {
+            border-bottom: 1px solid #ddd;
+            padding: 10px 0;
+            margin-bottom: 10px;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .attraction:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+        .attraction img {
+            max-width: 100px;
+            margin-right: 10px;
+            border-radius: 4px;
+            vertical-align: middle;
+        }
+        .attraction h3 {
+            margin: 0;
+            font-size: 1.2em;
+        }
+        .attraction p {
+            margin: 5px 0;
+        }
+        #loading {
+            text-align: center;
+            font-size: 1.2em;
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+    <h1>Place Search and Attractions</h1>
+    <div class="content">
+        <input type="text" id="placeInput" placeholder="Enter a place (e.g., Eiffel Tower)">
+        <button id="fetchDataButton">Search</button>
+        <h2>Nearby Attractions:</h2>
+        <div id="loading" style="display: none; color: black;">Loading...</div>
+        <div id="attractionsContainer">Enter a place and click the button to fetch data...</div>
+    </div>
+
+    <script>
+        document.getElementById('fetchDataButton').addEventListener('click', async () => {
+            const place = document.getElementById('placeInput').value;
+            if (!place) {
+                alert('Please enter a place.');
+                return;
+            }
+
+            document.getElementById('loading').style.display = 'block';
+            document.getElementById('attractionsContainer').style.display = 'none';
+
+            const url = `https://address-from-to-latitude-longitude.p.rapidapi.com/geolocationapi?address=${encodeURIComponent(place)}`;
+            const options = {
+                method: 'GET',
+                headers: {
+                    'x-rapidapi-key': '63e17585b1mshf1efd542d30ab4dp14bb65jsn742d404f66d3',
+                    'x-rapidapi-host': 'address-from-to-latitude-longitude.p.rapidapi.com'
+                }
+            };
+
+            try {
+                const response = await fetch(url, options);
+                const result = await response.json();
+
+                if (result.Results && result.Results.length > 0) {
+                    const { latitude, longitude } = result.Results[0];
+                    fetchAttractions(latitude, longitude);
+                } else {
+                    document.getElementById('loading').style.display = 'none';
+                    document.getElementById('attractionsContainer').style.display = 'block';
+                    document.getElementById('attractionsContainer').textContent = 'No results found.';
+                }
+            } catch (error) {
+                console.error(error);
+                document.getElementById('loading').style.display = 'none';
+                document.getElementById('attractionsContainer').style.display = 'block';
+                document.getElementById('attractionsContainer').textContent = 'Error fetching data. Check the console for details.';
+            }
+        });
+
+        async function fetchAttractions(latitude, longitude) {
+            const url = `https://travel-advisor.p.rapidapi.com/attractions/list-by-latlng?longitude=${longitude}&latitude=${latitude}&lunit=km&currency=USD&lang=en_US`;
+            const options = {
+                method: 'GET',
+                headers: {
+                    'x-rapidapi-key': '63e17585b1mshf1efd542d30ab4dp14bb65jsn742d404f66d3',
+                    'x-rapidapi-host': 'travel-advisor.p.rapidapi.com'
+                }
+            };
+
+            try {
+                const response = await fetch(url, options);
+                const result = await response.json();
+                displayAttractions(result.data);
+            } catch (error) {
+                console.error(error);
+                document.getElementById('loading').style.display = 'none';
+                document.getElementById('attractionsContainer').style.display = 'block';
+                document.getElementById('attractionsContainer').textContent = 'Error fetching attractions data. Check the console for details.';
+            }
+        }
+
+        function displayAttractions(attractions) {
+            document.getElementById('loading').style.display = 'none';
+            document.getElementById('attractionsContainer').style.display = 'block';
+
+            const container = document.getElementById('attractionsContainer');
+            container.innerHTML = '';
+            attractions.forEach(attraction => {
+                const div = document.createElement('div');
+                div.className = 'attraction';
+
+                if (attraction.photo && attraction.photo.images && attraction.photo.images.small) {
+                    const img = document.createElement('img');
+                    img.src = attraction.photo.images.small.url;
+                    img.alt = attraction.name;
+                    div.appendChild(img);
+                }
+
+                const h3 = document.createElement('h3');
+                h3.textContent = attraction.name;
+                div.appendChild(h3);
+
+                const p = document.createElement('p');
+                p.textContent = `Rating: ${attraction.rating} | Reviews: ${attraction.num_reviews}`;
+                div.appendChild(p);
+
+                container.appendChild(div);
+            });
+        }
+    </script>
+</body>
+</html>

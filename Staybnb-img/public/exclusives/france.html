@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Discover France Tour - $4,000</title>
+  <style>
+    /* Global styles */
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f5f5f5;
+      overflow-x: hidden;
+      margin: 0;
+      padding: 0;
+    }
+    h1 {
+      color: #333;
+      text-align: center;
+      margin-bottom: 20px;
+      font-size: 36px;
+      font-weight: bold;
+    }
+    .header {
+      background-color: #333;
+      color: #fff;
+      padding: 10px;
+      text-align: center;
+    }
+    .header h1 {
+      font-size: 24px;
+      margin-bottom: 10px;
+    }
+    .image {
+      width: 100%;
+      height: 500px;
+      object-fit: cover;
+      margin-bottom: 20px;
+    }
+    .description {
+      font-size: 18px;
+      color: #666;
+      margin: 20px;
+    }
+    .section {
+      margin: 40px 20px;
+    }
+    .section h2 {
+      font-size: 24px;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+    .section p {
+      font-size: 16px;
+      margin-bottom: 20px;
+    }
+    .button-container {
+      text-align: center;
+      margin: 40px 0;
+    }
+    .button {
+      background-color: #4CAF50;
+      color: #fff;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 18px;
+    }
+    .button:hover {
+      background-color: #3e8e41;
+    }
+    /* Animations */
+    .animated {
+      opacity: 0;
+    }
+    .animated.show {
+      animation: fadeIn 1s forwards;
+    }
+    @keyframes fadeIn {
+      0% {
+        opacity: 0;
+      }
+      100% {
+        opacity: 1;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h1>Discover France Tour</h1>
+  </div>
+  <img src="../images/francee.jpg" alt="France" class="image animated" data-animate="fadeIn">
+  <div class="description animated" data-animate="fadeIn">
+    Embark on a 14-day luxury tour of France, exploring iconic cities, stunning landscapes, and historic landmarks. Enjoy gourmet dining, 4-star accommodations, and guided tours throughout your journey.
+  </div>
+  <div class="section animated" data-animate="fadeIn">
+    <h2>Itinerary</h2>
+    <p><strong>Day 1: Arrival in Paris</strong><br>
+      Arrive at Paris Charles de Gaulle Airport and transfer to your hotel. Check-in and visit the Eiffel Tower, enjoy a Seine River cruise, explore the Latin Quarter, and dine at a local bistro.</p>
+    <p><strong>Day 2: Paris</strong><br>
+      Visit the Louvre Museum, Notre-Dame Cathedral, Arc de Triomphe, and the Champs-Élysées.</p>
+    <p><strong>Day 3: Paris</strong><br>
+      Visit the Palace of Versailles, enjoy a cabaret show at the Moulin Rouge, and explore the Marais neighborhood.</p>
+    <p><strong>Day 4: Paris to Nice</strong><br>
+      Fly to Nice, visit the Promenade des Anglais, Old Town, and Cours Saleya Market.</p>
+    <p><strong>Day 5: Nice</strong><br>
+      Day trip to Monaco, visit the Palace of Monaco, return to Nice for dinner and explore the Port of Nice.</p>
+    <p><strong>Day 6: Nice</strong><br>
+      Visit the Chagall Museum, Castle Hill, and Cimiez Hill.</p>
+    <p><strong>Day 7: Nice to Bordeaux</strong><br>
+      Fly to Bordeaux, visit the Place de la Bourse, Grand Théâtre, and Saint-Pierre district.</p>
+    <p><strong>Day 8: Bordeaux</strong><br>
+      Take a wine tour, visit the Musée d'Aquitaine and the Cathedral of Saint Andrew.</p>
+    <p><strong>Day 9: Bordeaux</strong><br>
+      Visit Arcachon Bay and enjoy a boat tour, return to Bordeaux and explore the Quays of Bordeaux.</p>
+    <p><strong>Day 10: Bordeaux to Loire Valley</strong><br>
+      Drive to the Loire Valley, visit Château de Chambord and Château de Chenonceau.</p>
+    <p><strong>Day 11: Loire Valley</strong><br>
+      Visit Château d'Amboise, enjoy lunch, explore Blois and visit Château de Blois.</p>
+    <p><strong>Day 12: Loire Valley to Mont Saint-Michel</strong><br>
+      Drive to Mont Saint-Michel, visit the abbey, explore the bay, and enjoy dinner.</p>
+    <p><strong>Day 13: Mont Saint-Michel</strong><br>
+      Take a guided tour of the abbey, explore Cancale, and enjoy the views of the bay.</p>
+    <p><strong>Day 14: Departure from Paris</strong><br>
+      Drive back to Paris and depart from Paris Charles de Gaulle Airport.</p>
+  </div>
+  <div class="section animated" data-animate="fadeIn">
+    <h2>Inclusions</h2>
+    <p>Return airfare from your preferred airport, 13 nights' accommodation in 4-star hotels, daily breakfast and dinner, guided tours and activities, airport transfers and transportation between destinations.</p>
+  </div>
+  <div class="button-container animated" data-animate="fadeIn">
+    <button class="button">Book Now - $4,000 per person</button>
+  </div>
+
+  <script>
+    // Add event listener to animate sections on scroll
+    document.addEventListener("scroll", function() {
+      var elements = document.querySelectorAll(".animated");
+      elements.forEach(function(element) {
+        if (element.offsetTop - 200 < window.scrollY) {
+          element.classList.add("show");
+        }
+      });
+    });
+
+    // Trigger animation on load
+    window.addEventListener("load", function() {
+      var elements = document.querySelectorAll(".animated");
+      elements.forEach(function(element) {
+        element.classList.add("show");
+      });
+    });
+  </script>
+</body>
+</html>

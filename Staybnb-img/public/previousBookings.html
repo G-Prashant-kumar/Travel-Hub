@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Previous Bookings</title>
+    <link rel="stylesheet" href="style.css"> <!-- Assuming you have a CSS file -->
+    <style>
+        /* Add some extraordinary styling */
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: url('./images/login7.jpg') no-repeat center center fixed;
+            background-size: cover;
+            padding: 20px;
+            transition: background-color 0.5s ease; /* Add a transition effect */
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #fff;
+        }
+        .booking-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin-top: 20px;
+            transition: box-shadow 0.5s ease; /* Add a transition effect */
+        }
+        .booking-item {
+            border-bottom: 1px solid #ddd;
+            padding: 10px 0;
+            transition: background-color 0.5s ease; /* Add a transition effect */
+        }
+        .booking-item:hover {
+            background-color: #f7f7f7;
+        }
+        .booking-item:last-child {
+            border-bottom: none;
+        }
+        .booking-info {
+            margin-bottom: 10px;
+        }
+        .booking-info p {
+            margin: 5px 0;
+        }
+        /* Add some animations */
+        .booking-container {
+            animation: fadeIn 1s ease; /* Add a fade-in animation */
+        }
+        .booking-item {
+            animation: slideIn 1s ease; /* Add a slide-in animation */
+        }
+        /* Add some transitions */
+        .booking-container:hover {
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+        }
+        .booking-item:hover {
+            background-color: #f2f2f2;
+        }
+        /* Define the animations */
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
+        @keyframes slideIn {
+            0% {
+                transform: translateY(-20px);
+                opacity: 0;
+            }
+            100% {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1 style="background-color: #9794c2; padding: 1% 1% 1% 1%;">Previous Bookings</h1>
+
+    <div class="booking-container" id="booking-container">
+        <!-- Flights will be dynamically added here -->
+        <h2>Flight Bookings</h2>
+        <div id="flight-bookings"></div>
+
+        <!-- Hotels will be dynamically added here -->
+        <h2>Hotel Bookings</h2>
+        <div id="hotel-bookings"></div>
+    </div>
+
+    <script>
+        async function fetchPreviousBookings() {
+            try {
+                const responseFlights = await fetch('http://localhost:3000/api/bookings', {
+                    method: 'GET',
+                    headers: {
+                        'Authorization': `Bearer ${localStorage.getItem('token')}`
+                    },
+                    credentials: 'include'
+                });
+                const responseHotels = await fetch('http://localhost:3000/api/hotelBookings', {
+                    method: 'GET',
+                    headers: {
+                        'Authorization': `Bearer ${localStorage.getItem('token')}`
+                    },
+                    credentials: 'include'
+                });
+
+                if (responseFlights.ok && responseHotels.ok) {
+                    const flights = await responseFlights.json();
+                    const hotels = await responseHotels.json();
+                    displayFlights(flights);
+                    displayHotels(hotels);
+                } else {
+                    console.error('Failed to fetch previous bookings:', responseFlights.status, responseHotels.status);
+                    displayErrorMessage('Failed to fetch previous bookings.');
+                }
+            } catch (error) {
+                console.error('Error fetching previous bookings:', error);
+                displayErrorMessage('Error fetching previous bookings.');
+            }
+        }
+
+        function displayFlights(bookings) {
+            const flightContainer = document.getElementById('flight-bookings');
+            flightContainer.innerHTML = '';
+
+            bookings.forEach(booking => {
+                const bookingItem = document.createElement('div');
+                bookingItem.classList.add('booking-item');
+
+                const flightDetails = booking.flightDetails;
+                const bookingDate = new Date(booking.bookingDate).toLocaleString();
+
+                bookingItem.innerHTML = `
+                    <div class="booking-info">
+                        <p><strong>From:</strong> ${flightDetails.itineraries[0].segments[0].departure.iataCode} Terminal ${flightDetails.itineraries[0].segments[0].departure.terminal}</p>
+                        <p><strong>To:</strong> ${flightDetails.itineraries[0].segments[0].arrival.iataCode} Terminal ${flightDetails.itineraries[0].segments[0].arrival.terminal}</p>
+                        <p><strong>Flight Number:</strong> ${flightDetails.itineraries[0].segments[0].number}</p>
+                        <p><strong>Booking Date:</strong> ${bookingDate}</p>
+                    </div>
+                    <hr>
+                `;
+
+                flightContainer.appendChild(bookingItem);
+            });
+        }
+
+        function displayHotels(bookings) {
+            const hotelContainer = document.getElementById('hotel-bookings');
+            hotelContainer.innerHTML = '';
+
+            bookings.forEach(booking => {
+                const bookingItem = document.createElement('div');
+                bookingItem.classList.add('booking-item');
+
+                const hotelDetails = booking.hotelDetails;
+                const bookingDate = new Date(booking.bookingDate).toLocaleString();
+
+                // Check if hotelDetails.address.lines exists before accessing join()
+                const addressLines = hotelDetails.address.lines ? hotelDetails.address.lines.join(', ') : '';
+
+                bookingItem.innerHTML = `
+                    <div class="booking-info">
+                        <p><strong>Hotel Name:</strong> ${hotelDetails.name}</p>
+                        <p><strong>Address:</strong> ${addressLines}</p>
+                        <p><strong>Rating:</strong> ${hotelDetails.rating}</p>
+                        <p><strong>Booking Date:</strong> ${bookingDate}</p>
+                    </div>
+                    <hr>
+                `;
+
+                hotelContainer.appendChild(bookingItem);
+            });
+        }
+
+        function displayErrorMessage(message) {
+            const bookingContainer = document.getElementById('booking-container');
+            bookingContainer.innerHTML = `<p>${message}</p>`;
+        }
+
+        // Fetch bookings when the page loads
+        document.addEventListener('DOMContentLoaded', () => {
+            fetchPreviousBookings();
+        });
+    </script>
+</body>
+</html>

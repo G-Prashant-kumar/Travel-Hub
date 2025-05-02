@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TRAVEL EAZZIE - EASY TUTORIALS</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div onclick="location.href='#container'" class="header">
+        <nav>
+            <h1 style="font-size: 30px; font-weight: 1000; padding: 0px;">TRAVEL-HUB</h1>
+            <ul class="nav-links">
+                <li><a href="#servicesContainer">Our Services</a></li>
+                <li><a href="#exclusivesContainer">Exclusives</a></li>
+                <li><a href="#trendingContainer">Trending Places</a></li>
+                <li><a href="#storiesContainer">Traveller Stories</a></li>
+            </ul>
+            <div class="nav-buttons" id="auth-buttons">
+                <a href="signup.html" class="nav-btn">Sign Up</a>
+                <a href="login.html" class="nav-btn">Log In</a>
+            </div>
+        </nav>
+        <hr>
+        <div class="text_container">
+            <div class="tagline">
+                <span id="textAnimation" class="text-animation"></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <h2 class="sub-title" id="servicesContainer">Our Services</h2>
+        <div class="services">
+            <div id="travel" onclick="checkLogin('services/FlightFetch.html')">
+                <img src="images/plane2.jpg" alt="Travel">
+                <h3>Travel</h3>
+            </div>
+            <div id="hotel" onclick="checkLogin('services/HotelFetch.html')">
+                <img src="images/hotels.jpg">
+                <h3>Hotel Booking</h3>
+            </div>
+            <div onclick="checkLogin('services/TravelSpots.html')">
+                <img src="images/travelspot.jpg">
+                <h3>Travel Spots</h3>
+            </div>
+            <div onclick="checkLogin('services/guides.html')">
+                <img src="images/guides.jpg">
+                <h3>Guides</h3>
+            </div>
+        </div>
+
+        <h2 class="sub-title" id="exclusivesContainer">Exclusives</h2>
+        <div class="exclusives">
+            <div onclick="checkLogin('exclusives/london.html')">
+                <img src="images/image-1.png">
+                <span>
+                    <h3>London</h3>
+                    <p>Starts @ $250</p>
+                </span>
+            </div>
+            <div onclick="checkLogin('exclusives/switzerland.html')">
+                <img src="images/image-2.png">
+                <span>
+                    <h3>Switzerland</h3>
+                    <p>Starts @ $250</p>
+                </span>
+            </div>
+            <div onclick="checkLogin('exclusives/australia.html')">
+                <img src="images/image-3.png">
+                <span>
+                    <h3>Australia</h3>
+                    <p>Starts @ $250</p>
+                </span>
+            </div>
+            <div onclick="checkLogin('exclusives/france.html')">
+                <img src="images/image-4.png">
+                <span>
+                    <h3>France</h3>
+                    <p>Starts @ $250</p>
+                </span>
+            </div>
+            <div onclick="checkLogin('exclusives/amsterdam.html')">
+                <img src="images/image-5.png">
+                <span>
+                    <h3>Amsterdam</h3>
+                    <p>Starts @ $250</p>
+                </span>
+            </div>
+        </div>
+
+        <h2 class="sub-title" id="trendingContainer">Trending Places</h2>
+        <div class="trending">
+            <div onclick="checkLogin('trendingPlaces/Trending1.html')">
+                <img src="images/dubai.png">
+                <h3>Dubai</h3>
+            </div>
+            <div onclick="checkLogin('trendingPlaces/Trending2.html')">
+                <img src="images/new-york.png">
+                <h3>New York</h3>
+            </div>
+            <div onclick="checkLogin('trendingPlaces/Trending3.html')">
+                <img src="images/paris.png">
+                <h3>Paris</h3>
+            </div>
+            <div onclick="checkLogin('trendingPlaces/Trending4.html')">
+                <img src="images/new-delhi.png">
+                <h3>New Delhi</h3>
+            </div>
+        </div>
+
+        <h2 class="sub-title" id="storiesContainer">Travellers Stories</h2>
+        <div class="stories">
+            <div onclick="checkLogin('travelStories/europe.html')">
+                <img src="images/story-1.png">
+                <p>Popular European countries with a budget of just $10,000</p>
+            </div>
+            <div onclick="checkLogin('travelStories/india.html')">
+                <img src="images/story-2.png">
+                <p>Traveled more than 100 countries in less than a year.</p>
+            </div>
+            <div onclick="checkLogin('travelStories/thailand.html')">
+                <img src="images/story-3.png">
+                <p>Best experience you get while travelling to Thailand</p>
+            </div>
+        </div>
+
+        <div class="cta">
+            <h3>NEED HELP</h3>
+            <p>Contact us here...<br>available 24 x 7</p>
+            <a href="signup.html" class="cta-btn">Contact us</a>
+        </div>
+
+    </div>
+    <footer class="about-msg">
+        <h2>About Travel-Hub</h2>
+        <p>Staybnb offers a wide range of places to stay, from budget options to luxury accommodations, ensuring that you find the perfect spot for your travel needs.</p>
+    </footer>
+
+    <script>
+        async function checkLogin(redirectUrl) {
+            try {
+                const res = await fetch('http://localhost:3000/api/auth/check-session', {
+                    method: 'GET',
+                    credentials: 'include'
+                });
+
+                const data = await res.json();
+
+                if (!data.loggedIn) {
+                    localStorage.setItem('intendedUrl', redirectUrl);
+                    window.location.href = 'login.html';
+                } else {
+                    window.location.href = redirectUrl;
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                window.location.href = 'login.html';
+            }
+        }
+
+        const textElement = document.getElementById('textAnimation');
+        const phrase = "TRAVEL TO LIVE";
+        const phrase2 = " TO TRAVEL";
+
+        function animateText() {
+            let charIndex = 0;
+
+            function type() {
+                if (charIndex < phrase.length) {
+                    textElement.textContent += phrase.charAt(charIndex);
+                    charIndex++;
+                    setTimeout(type, 250);
+                } else {
+                    setTimeout(() => {
+                        textElement.textContent = "LIVE";
+                        setTimeout(() => {
+                            let charIndex2 = 0;
+                            function type2() {
+                                if (charIndex2 < phrase2.length) {
+                                    textElement.textContent += phrase2.charAt(charIndex2);
+                                    charIndex2++;
+                                    setTimeout(type2, 250);
+                                } else {
+                                    setTimeout(() => {
+                                        textElement.textContent = "";
+                                        animateText();
+                                    }, 250);
+                                }
+                            }
+                            type2();
+                        }, 250);
+                    }, 250);
+                }
+            }
+
+            type();
+        }
+
+        animateText();
+
+        async function updateAuthButtons() {
+            try {
+                const res = await fetch('http://localhost:3000/api/auth/check-session', {
+                    method: 'GET',
+                    credentials: 'include'
+                });
+
+                const data = await res.json();
+
+                const authButtons = document.getElementById('auth-buttons');
+                if (data.loggedIn) {
+                    authButtons.innerHTML = '<a href="previousBookings.html" class="nav-btn">Previous Bookings</a><a href="#" class="nav-btn" onclick="logout()">Log Out</a>';
+                }
+            } catch (error) {
+                console.error('Error:', error);
+            }
+        }
+
+        async function logout() {
+            try {
+                const res = await fetch('http://localhost:3000/api/auth/logout', {
+                    method: 'POST',
+                    credentials: 'include'
+                });
+
+                const data = await res.json();
+                alert(data.msg);
+                window.location.href = 'index.html';
+            } catch (error) {
+                console.error('Error:', error);
+                alert('An error occurred. Please try again.');
+            }
+        }
+
+        updateAuthButtons();
+    </script>
+</body>
+</html>

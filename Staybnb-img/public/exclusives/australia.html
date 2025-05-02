@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Luxury Getaway to Australia - $350</title>
+  <style>
+    /* Global styles */
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f5f5f5;
+      overflow-x: hidden;
+      margin: 0;
+      padding: 0;
+    }
+    h1 {
+      color: #333;
+      text-align: center;
+      margin-bottom: 20px;
+      font-size: 36px;
+      font-weight: bold;
+    }
+    .header {
+      background-color: #333;
+      color: #fff;
+      padding: 10px;
+      text-align: center;
+    }
+    .header h1 {
+      font-size: 24px;
+      margin-bottom: 10px;
+    }
+    .image {
+      width: 100%;
+      height: 500px;
+      object-fit: cover;
+      margin-bottom: 20px;
+    }
+    .description {
+      font-size: 18px;
+      color: #666;
+      margin: 20px;
+    }
+    .section {
+      margin: 40px 20px;
+    }
+    .section h2 {
+      font-size: 24px;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+    .section p {
+      font-size: 16px;
+      margin-bottom: 20px;
+    }
+    .button-container {
+      text-align: center;
+      margin: 40px 0;
+    }
+    .button {
+      background-color: #4CAF50;
+      color: #fff;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 18px;
+    }
+    .button:hover {
+      background-color: #3e8e41;
+    }
+    /* Animations */
+    .animated {
+      opacity: 0;
+    }
+    .animated.show {
+      animation: fadeIn 1s forwards;
+    }
+    @keyframes fadeIn {
+      0% {
+        opacity: 0;
+      }
+      100% {
+        opacity: 1;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h1>Luxury Getaway to Australia</h1>
+  </div>
+  <img src="../images/australia.jpg" alt="Australia" class="image animated" data-animate="fadeIn">
+  <div class="description animated" data-animate="fadeIn">
+    Experience the ultimate luxury getaway to Australia, a land of stunning natural beauty, vibrant cities, and unique wildlife. Enjoy a 5-star hotel stay, gourmet dining, and exclusive access to Australia's top attractions.
+  </div>
+  <div class="section animated" data-animate="fadeIn">
+    <h2>Exploring Australia</h2>
+    <p>Australia offers a diverse range of experiences, from the iconic Sydney Opera House and Great Barrier Reef to the outback adventures of Uluru and the vibrant street art of Melbourne.</p>
+  </div>
+  <div class="section animated" data-animate="fadeIn">
+    <h2>Getting Around</h2>
+    <p>Australia's extensive transportation network includes domestic flights, trains, buses, and ferries, making it easy to explore this vast country.</p>
+  </div>
+  <div class="section animated" data-animate="fadeIn">
+    <h2>Top Attractions</h2>
+    <p>Don't miss the Great Barrier Reef, Sydney Harbour Bridge, Bondi Beach, Daintree Rainforest, and the Twelve Apostles on the Great Ocean Road.</p>
+  </div>
+  <div class="section animated" data-animate="fadeIn">
+    <h2>Unique Experiences</h2>
+    <p>Indulge in wine tasting in the Barossa Valley, explore the remote wilderness of Tasmania, or take a scenic flight over the Whitsunday Islands.</p>
+  </div>
+  <div class="section animated" data-animate="fadeIn">
+    <h2>Travel Tips</h2>
+    <p>Australia is known for its friendly locals and laid-back lifestyle. The best time to visit is during the spring (September to November) and autumn (March to May) for mild weather and fewer crowds. Consider getting a local SIM card for convenient communication and navigation.</p>
+  </div>
+  <div class="button-container animated" data-animate="fadeIn">
+    <button class="button">Book Now - $350 per person</button>
+  </div>
+
+  <script>
+    // Add event listener to animate sections on scroll
+    document.addEventListener("scroll", function() {
+      var elements = document.querySelectorAll(".animated");
+      elements.forEach(function(element) {
+        if (element.offsetTop - 200 < window.scrollY) {
+          element.classList.add("show");
+        }
+      });
+    });
+
+    // Trigger animation on load
+    window.addEventListener("load", function() {
+      var elements = document.querySelectorAll(".animated");
+      elements.forEach(function(element) {
+        element.classList.add("show");
+      });
+    });
+  </script>
+</body>
+</html>

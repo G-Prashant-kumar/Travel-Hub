@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tagline Animation</title>
+    <style>
+        
+        .text_container {
+            height: 100px;
+            width: 500px;
+            background-color: aqua;
+            text-align: center;
+
+        }
+
+        .tagline {
+            font-size: 2em;
+            white-space: nowrap;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .text-animation {
+            display: inline-block;
+            overflow: hidden;
+            white-space: nowrap;
+            border-right: .15em solid orange;
+        }
+
+        @keyframes typing {
+            from {
+                width: 0;
+            }
+            to {
+                width: 18ch;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="text_container">
+        <div class="tagline">
+            <span id="textAnimation" class="text-animation"></span>
+        </div>
+    </div>
+
+    <script>
+        const textElement = document.getElementById('textAnimation');
+        const phrase = "TRAVEL TO LIVE";
+        const phrase2 = " TO TRAVEL";
+
+        function animateText() {
+            let charIndex = 0;
+
+            function type() {
+                if (charIndex < phrase.length) {
+                    textElement.textContent += phrase.charAt(charIndex);
+                    charIndex++;
+                    setTimeout(type, 200);
+                } else {
+                    // After typing "TRAVEL TO LIVE", wait for a moment and then display "LIVE"
+                    setTimeout(() => {
+                        textElement.textContent = "LIVE";
+                        setTimeout(() => {
+                            let charIndex2 = 0;
+                            function type2() {
+                                if (charIndex2 < phrase2.length) {
+                                    textElement.textContent += phrase2.charAt(charIndex2);
+                                    charIndex2++;
+                                    setTimeout(type2, 200);
+                                } else {
+                                    // After typing "LIVE TO TRAVEL", wait for a moment and then restart the animation
+                                    setTimeout(() => {
+                                        textElement.textContent = "";
+                                        animateText();
+                                    }, 1000);
+                                }
+                            }
+                            type2();
+                        }, 1000);
+                    }, 1000);
+                }
+            }
+
+            type();
+        }
+
+        animateText(); // Start animating "TRAVEL TO LIVE"
+    </script>
+</body>
+</html>

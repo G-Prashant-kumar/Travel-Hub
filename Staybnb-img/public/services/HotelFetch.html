@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hotel Booking Information</title>
+    <link rel="stylesheet" href="../style.css">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: url('../images/hotels3.jpg') no-repeat center center fixed;
+            background-size: cover;
+            color: #b29d9d;
+            padding: 20px;
+            margin-top: 5px;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #fff;
+        }
+
+        form {
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            margin: 0 auto;
+            color: #333;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+
+        input[type="text"],
+        input[type="number"],
+        button {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+            font-size: 16px;
+        }
+
+        button {
+            background-color: #ff5361;
+            color: white;
+            border: none;
+            cursor: pointer;
+            padding: 12px;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background-color: #e04b55;
+        }
+
+        #hotel-data {
+            margin-top: 20px;
+            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.95);
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            color: #333;
+        }
+
+        .hotel-info {
+            margin-bottom: 20px;
+            padding: 15px;
+            background: rgba(112, 161, 255, 0.2);
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .hotel-info p {
+            margin: 5px 0;
+        }
+
+        .hotel-info .price-book {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 10px;
+        }
+
+        .hotel-info .price {
+            font-size: 1.2em;
+            font-weight: bold;
+            background-color: #ffd700;
+            padding: 10px;
+            border-radius: 5px;
+            max-width: 150px;
+            text-align: center;
+        }
+
+        .hotel-info button {
+            background-color: #35f17a;
+            width: 200px;
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .hotel-info button:hover {
+            background-color: #487a46;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgb(0, 0, 0);
+            background-color: rgba(0, 0, 0, 0.4);
+            padding-top: 60px;
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: 5% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            max-width: 600px;
+            border-radius: 8px;
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <h1 style="background-color: #e04b55; padding: 1% 1% 1% 1%;">Hotel Booking Information</h1>
+    <form>
+        <label for="city">City Code:</label>
+        <input type="text" id="city" name="city" placeholder="e.g., BLR" required>
+        <label for="ratings">Minimum Ratings:</label>
+        <input type="number" id="ratings" name="ratings" min="1" max="5" required>
+        <label for="radius">Radius (in KM):</label>
+        <input type="number" id="radius" name="radius" min="1" required>
+        <button type="button" onclick="fetchHotelData()">Search Hotels</button>
+    </form>
+
+    <div id="hotel-data">Enter the data and click on Search Hotels to search for hotels...</div>
+
+    <!-- The Modal -->
+    <div id="myModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <div id="modal-body"></div>
+            <button id="confirm-booking"
+                style="background-color: #35f17a; color: white; border: none; padding: 10px; border-radius: 5px; cursor: pointer;">Confirm
+                Booking</button>
+        </div>
+    </div>
+
+    <!-- Payment Modal -->
+    <div id="paymentModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <div id="payment-modal-body">
+                <h2>Payment Information</h2>
+                <label for="card-number">Card Number:</label>
+                <input type="text" id="card-number" name="card-number" placeholder="1234 5678 9123 4567" required>
+                <label for="expiry-date">Expiry Date:</label>
+                <input type="text" id="expiry-date" name="expiry-date" placeholder="MM/YY" required>
+                <label for="cvv">CVV:</label>
+                <input type="text" id="cvv" name="cvv" placeholder="123" required>
+                <button id="proceed-payment"
+                    style="background-color: #35f17a; color: white; border: none; padding: 10px; border-radius: 5px; cursor: pointer;">Proceed
+                    to Pay</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        async function fetchHotelData() {
+            const city = document.getElementById('city').value;
+            const ratings = document.getElementById('ratings').value;
+            const radius = document.getElementById('radius').value;
+            const accessToken = 'g8wg1BYPxRmC3dBNwbGf8WE5GqEN';
+
+            const apiUrl = `https://test.api.amadeus.com/v1/reference-data/locations/hotels/by-city?cityCode=${city}&radius=${radius}&radiusUnit=KM&ratings=${ratings}&hotelSource=ALL`;
+
+            try {
+                const response = await fetch(apiUrl, {
+                    method: 'GET',
+                    headers: {
+                        'Authorization': `Bearer ${accessToken}`
+                    }
+                });
+                if (response.ok) {
+                    const data = await response.json();
+                    displayHotelData(data);
+                } else {
+                    console.error('API request failed with status code', response.status);
+                    displayErrorMessage('Failed to fetch hotel data.');
+                }
+            } catch (error) {
+                console.error('Error fetching hotel data:', error);
+                displayErrorMessage('Error fetching hotel data.');
+            }
+        }
+
+        function displayHotelData(data) {
+            const hotelDataDiv = document.getElementById('hotel-data');
+            hotelDataDiv.innerHTML = '';
+
+            const hotels = data.data.slice(0, 10);
+
+            hotels.forEach(hotel => {
+                const hotelInfo = document.createElement('div');
+                hotelInfo.classList.add('hotel-info');
+
+                const addressLines = hotel.address.lines ? hotel.address.lines.join(', ') : 'Address information not available';
+
+                hotelInfo.innerHTML = `
+                    <p><strong>Name:</strong> ${hotel.name}</p>
+                    <p><strong>Address:</strong> ${addressLines}</p>
+                    <p><strong>Rating:</strong> ${hotel.rating}</p>
+                    <p><strong>Distance:</strong> ${hotel.distance.value} ${hotel.distance.unit}</p>
+                    <div class="price-book">
+                        <div class="price">Price Info N/A</div>
+                        <button onclick="confirmBooking(${JSON.stringify(hotel).replace(/"/g, '&quot;')})">Book</button>
+                    </div>
+                    <hr>
+                `;
+
+                hotelDataDiv.appendChild(hotelInfo);
+            });
+        }
+
+        function displayErrorMessage(message) {
+            const hotelDataDiv = document.getElementById('hotel-data');
+            hotelDataDiv.innerHTML = `<p>${message}</p>`;
+        }
+
+        function confirmBooking(hotel) {
+            const modal = document.getElementById("myModal");
+            const modalBody = document.getElementById("modal-body");
+
+            const addressLines = hotel.address.lines ? hotel.address.lines.join(', ') : 'Address information not available';
+
+            modalBody.innerHTML = `
+                <h2>Confirm Booking</h2>
+                <p><strong>Name:</strong> ${hotel.name}</p>
+                <p><strong>Address:</strong> ${addressLines}</p>
+                <p><strong>Rating:</strong> ${hotel.rating}</p>
+                <p><strong>Distance:</strong> ${hotel.distance.value} ${hotel.distance.unit}</p>
+            `;
+
+            modal.style.display = "block";
+
+            const confirmButton = document.getElementById("confirm-booking");
+            confirmButton.onclick = function () {
+                modal.style.display = "none";
+                showPaymentWindow(hotel);
+            };
+        }
+
+        function showPaymentWindow(hotel) {
+            const paymentModal = document.getElementById("paymentModal");
+            paymentModal.style.display = "block";
+
+            const proceedButton = document.getElementById("proceed-payment");
+            proceedButton.onclick = function () {
+                paymentModal.style.display = "none";
+                saveBooking(hotel);
+            };
+        }
+
+        async function saveBooking(hotel) {
+            console.log("Attempting to save booking:", hotel);
+            try {
+                const response = await fetch('http://localhost:3000/api/hotelBookings/add', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${localStorage.getItem('token')}`
+                    },
+                    credentials: 'include',
+                    body: JSON.stringify({ hotelDetails: hotel })
+                });
+
+                const data = await response.json();
+                if (response.ok) {
+                    alert('Booking successfully completed!');
+                } else {
+                    console.error('Error saving booking:', data.msg);
+                    alert('Error saving booking. Please try again.');
+                }
+            } catch (error) {
+                console.error('Error saving booking:', error);
+                alert('Error saving booking. Please try again.');
+            }
+        }
+
+
+        const modal = document.getElementById("myModal");
+        const span = document.getElementsByClassName("close")[0];
+
+        span.onclick = function () {
+            modal.style.display = "none";
+        };
+
+        window.onclick = function (event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        };
+
+        const paymentModal = document.getElementById("paymentModal");
+        const paymentSpan = paymentModal.getElementsByClassName("close")[0];
+
+        paymentSpan.onclick = function () {
+            paymentModal.style.display = "none";
+        };
+
+        window.onclick = function (event) {
+            if (event.target == paymentModal) {
+                paymentModal.style.display = "none";
+            }
+        };
+    </script>
+</body>
+
+</html>

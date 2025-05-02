@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guides - TRAVEL-HUB</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #515566, #aa5858); /* Gradient blend of blue and white */
+            color: #333;
+        }
+
+        /* Header and Navigation */
+        .header {
+            height: 35vh;
+            width: 100%;
+            background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url(../images/hero2.jpg);
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        nav {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px 7%;
+            background-color: rgba(0, 0, 0, 0.7);
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+        }
+
+        .nav-links li a {
+            transition: color 0.3s ease;
+        }
+
+        .nav-links li a:hover {
+            color: #ccc;
+        }
+
+        .logo {
+            width: 140px;
+            cursor: pointer;
+        }
+
+        .nav-links li {
+            list-style: none;
+            display: inline-block;
+            margin: 10px 30px;
+        }
+
+        .nav-links li a {
+            text-decoration: none;
+            color: #fff;
+            font-weight: bold;
+        }
+
+        .nav-buttons {
+            display: flex;
+            gap: 20px;
+        }
+
+        .nav-btn {
+            background: #8ea1dc;
+            color: #ffffff;
+            font-weight: bold;
+            padding: 8px 20px;
+            border-radius: 20px;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        .container {
+            padding: 2% 7%;
+            background: linear-gradient(135deg, #515566, #aa5858); /* Gradient blend of blue and white */
+
+            margin-top: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            font-size: 4vw;
+            font-weight: 500;
+            color: #fff;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .sub-title {
+            margin: 50px 0 20px;
+            font-size: 2.2vw;
+            font-weight: 800;
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+            color: #333;
+            text-align: center;
+        }
+
+        .services {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            grid-gap: 20px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .services div {
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .services div img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            transition: opacity 0.3s ease;
+        }
+
+        .services div:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+
+        .services h3 {
+            font-size: 24px;
+            margin: 10px 0;
+            color: #333;
+        }
+
+        .services p {
+            color: #666;
+            margin: 5px 0;
+            font-size: 14px;
+        }
+
+        .services div:hover img {
+            opacity: 0.8;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            background: #333;
+            color: #fff;
+            margin-top: 30px;
+            border-top: 5px solid #8ea1dc;
+        }
+    </style>
+</head>
+<body>
+    <h1 style="background-color: #9794c2; padding: 1% 1% 1% 1%;">Our Expert Guides</h1>
+    <main>
+        <section class="container" id="guides">
+            <h2 class="sub-title">Guides</h2>
+            <div class="services">
+                <div>
+                    <img src="../images/Guide1.webp" alt="Guide 1">
+                    <h3 >Guide 1</h3>
+                    <p>Description: Expert in European Tours</p>
+                    <p>Experience: 10 Years</p>
+                    <p>Price: $150/day</p>
+                </div>
+                <div>
+                    <img src="../images/Guide2.webp" alt="Guide 2">
+                    <h3>Guide 2</h3>
+                    <p>Description: Specialist in Asian Travel Spots</p>
+                    <p>Experience: 8 Years</p>
+                    <p>Price: $120/day</p>
+                </div>
+                <div>
+                    <img src="../images/Guide3.webp" alt="Guide 3">
+                    <h3>Guide 3</h3>
+                    <p>Description: Adventure and Hiking Guide</p>
+                    <p>Experience: 5 Years</p>
+                    <p>Price: $100/day</p>
+                </div>
+                <div>
+                    <img src="../images/Guide4.webp" alt="Guide 4">
+                    <h3>Guide 4</h3>
+                    <p>Description: Cultural and Historical Tours</p>
+                    <p>Experience: 12 Years</p>
+                    <p>Price: $180/day</p>
+                </div>
+                <div>
+                    <img src="../images/Guide5.webp" alt="Guide 5">
+                    <h3>Guide 5</h3>
+                    <p>Description: Expert in American Tours</p>
+                    <p>Experience: 4 Years</p>
+                    <p>Price: $110/day</p>
+                </div>
+                <div>
+                    <img src="../images/Guide6.webp" alt="Guide 6">
+                    <h3>Guide 6</h3>
+                    <p>Description: Specialist in South Asian Travel Spots</p>
+                    <p>Experience: 10 Years</p>
+                    <p>Price: $170/day</p>
+                </div>
+                <div>
+                    <img src="../images/Guide7.webp" alt="Guide 7">
+                    <h3>Guide 7</h3>
+                    <p>Description: Adventure and Hiking Guide</p>
+                    <p>Experience: 3 Years</p>
+                    <p>Price: $200/day</p>
+                </div>
+                <div>
+                    <img src="../images/Guide8.webp" alt="Guide 8">
+                    <h3>Guide 8</h3>
+                    <p>Description: Cultural and Historical Tours in Southern Asia</p>
+                    <p>Experience: 7 Years</p>
+                    <p>Price: $150/day</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        async function logout() {
+            try {
+                const res = await fetch('http://localhost:3000/api/auth/logout', {
+                    method: 'POST',
+                    credentials: 'include'
+                });
+
+                const data = await res.json();
+                alert(data.msg);
+                window.location.href = '../index.html';
+            } catch (error) {
+                console.error('Error:', error);
+                alert('An error occurred. Please try again.');
+            }
+        }
+    </script>
+    
+    <footer>
+        <p>&copy; 2024 TRAVEL-HUB. All Rights Reserved.</p>
+    </footer>
+</body>
+</html>

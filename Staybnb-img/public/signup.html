@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up - Staybnb</title>
+    <link rel="stylesheet" href="signup.css">
+</head>
+
+<body>
+    <div class="auth-container">
+        <div class="auth-form signup-form">
+            <h2>Sign Up</h2>
+            <form id="signupForm">
+                <div class="input-group">
+                    <label for="signup-name">Name</label>
+                    <input type="text" id="signup-name" required placeholder="Enter your name">
+                </div>
+                <div class="input-group">
+                    <label for="signup-email">Email</label>
+                    <input type="email" id="signup-email" required placeholder="Enter your email">
+                </div>
+                <div class="input-group">
+                    <label for="signup-password">Password</label>
+                    <input type="password" id="signup-password" required placeholder="Enter your password">
+                </div>
+                <div class="input-group">
+                    <label for="signup-confirm-password">Confirm Password</label>
+                    <input type="password" id="signup-confirm-password" required placeholder="Confirm your password">
+                </div>
+                <button type="submit" class="auth-button">Sign Up</button>
+            </form>
+            <p>Already have an account? <a href="login.html" class="toggle-form">Login</a></p>
+        </div>
+    </div>
+    <script src="signup.js"></script>
+</body>
+
+</html>
