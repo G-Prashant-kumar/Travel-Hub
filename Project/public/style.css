@@ -20,13 +20,15 @@ nav {
     justify-content: space-between;
     padding: 20px 7%;
 }
+
 .nav-links li a {
     transition: color 0.3s ease;
-  }
-  
-  .nav-links li a:hover {
+}
+
+.nav-links li a:hover {
     color: #ccc;
 }
+
 .logo {
     width: 140px;
     cursor: pointer;
@@ -57,6 +59,7 @@ nav {
     text-decoration: none;
     font-size: 14px;
 }
+
 /* TAGLINE */
 .text_container {
     height: 200px;
@@ -78,20 +81,23 @@ nav {
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
-    text-shadow: 
-        1px 1px 2px rgba(0,0,0,0.2), 
-        2px 2px 4px rgba(0,0,0,0.2), 
-        3px 3px 6px rgba(0,0,0,0.2);
+    text-shadow:
+        1px 1px 2px rgba(0, 0, 0, 0.2),
+        2px 2px 4px rgba(0, 0, 0, 0.2),
+        3px 3px 6px rgba(0, 0, 0, 0.2);
     animation: bounce 2s infinite, fadeIn 2s;
 }
+
 @keyframes fadeIn {
     from {
-      opacity: 0;
+        opacity: 0;
     }
+
     to {
-      opacity: 1;
+        opacity: 1;
     }
-  }
+}
+
 .text-animation {
     display: inline-block;
     overflow: hidden;
@@ -101,24 +107,51 @@ nav {
 }
 
 @keyframes typing {
-    from { width: 0; }
-    to { width: 18ch; }
+    from {
+        width: 0;
+    }
+
+    to {
+        width: 18ch;
+    }
 }
 
 @keyframes blink-caret {
-    from, to { border-color: transparent; }
-    50% { border-color: rgba(255, 251, 251, 0.758); }
+
+    from,
+    to {
+        border-color: transparent;
+    }
+
+    50% {
+        border-color: rgba(255, 251, 251, 0.758);
+    }
 }
 
 @keyframes bounce {
-    0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
-    40% { transform: translateY(-0px); }
-    60% { transform: translateY(-0px); }
+
+    0%,
+    20%,
+    50%,
+    80%,
+    100% {
+        transform: translateY(0);
+    }
+
+    40% {
+        transform: translateY(-0px);
+    }
+
+    60% {
+        transform: translateY(-0px);
+    }
 }
+
 /* Container */
 .container {
     padding: 2% 7% 2%;
-    background: linear-gradient(135deg, #515566, #aa5858); /* Gradient blend of blue and white */
+    background: linear-gradient(135deg, #515566, #aa5858);
+    /* Gradient blend of blue and white */
 }
 
 .header h1 {
@@ -134,7 +167,7 @@ nav {
     margin: 50px 0 20px;
     font-size: 2.2vw;
     font-weight: 800;
-    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     color: #ffffff;
 }
 
@@ -150,7 +183,8 @@ nav {
 
 .services div {
     cursor: pointer;
-    position: relative; /* Ensure position context for absolutely positioned h3 */
+    position: relative;
+    /* Ensure position context for absolutely positioned h3 */
 }
 
 .services div img {
@@ -158,38 +192,46 @@ nav {
     width: 270px;
     height: 180px;
     border-radius: 10px;
-    opacity: 0.4; /* Initial opacity */
-    transition: opacity 0.3s ease; /* Smooth transition for opacity */
+    opacity: 0.4;
+    /* Initial opacity */
+    transition: opacity 0.3s ease;
+    /* Smooth transition for opacity */
 }
 
 .services div:hover img {
-    opacity: 1; /* Full opacity on hover */
+    opacity: 1;
+    /* Full opacity on hover */
 }
 
 .services div:hover h3 {
-    opacity: 0; /* Hide h3 text on hover */
+    opacity: 0;
+    /* Hide h3 text on hover */
 }
 
 .services h3 {
     position: absolute;
     top: 50%;
     left: 45%;
-    transform: translate(-50%, -50%); /* Center the text */
+    transform: translate(-50%, -50%);
+    /* Center the text */
     padding: 10px;
     text-align: center;
     color: white;
-    font-size: 35px; 
-    opacity: 1; /* Initial opacity */
-    transition: opacity 0.3s steps(100); /* Smooth transition for opacity */
+    font-size: 35px;
+    opacity: 1;
+    /* Initial opacity */
+    transition: opacity 0.3s steps(100);
+    /* Smooth transition for opacity */
 }
 
 .services div {
     transition: transform 0.3s ease;
-  }
-  
-  .services div:hover {
+}
+
+.services div:hover {
     transform: scale(1.1);
-  }
+}
+
 /* Exclusives */
 .exclusives {
     display: grid;
@@ -241,19 +283,22 @@ nav {
 /* Call to Action */
 .cta-btn {
     animation: pulse 2s infinite;
-  }
-  
-  @keyframes pulse {
+}
+
+@keyframes pulse {
     0% {
-      transform: scale(1);
+        transform: scale(1);
     }
+
     50% {
-      transform: scale(1.1);
+        transform: scale(1.1);
     }
+
     100% {
-      transform: scale(1);
+        transform: scale(1);
     }
-  }
+}
+
 .cta {
     margin: 80px 0;
     background-image: linear-gradient(to right, #3f2321, transparent), url(images/banner-2.png);
@@ -317,15 +362,10 @@ nav {
 .about-msg {
     padding: 10px;
     position: fixed;
-    background-color: #8ea1dc;
+    background-color: #9fa7c1;
     text-align: center;
     color: #333;
     font-size: 17px;
     bottom: 0;
     width: 100%;
 }
-
-
-
-
-
