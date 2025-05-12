@@ -142,7 +142,7 @@
     <script>
         async function checkLogin(redirectUrl) {
             try {
-                const res = await fetch('http://localhost:3000/api/auth/check-session', {
+                const res = await fetch('https://travel-hub-1.onrender.com/api/auth/check-session', {
                     method: 'GET',
                     credentials: 'include'
                 });
@@ -203,7 +203,7 @@
 
         async function updateAuthButtons() {
             try {
-                const res = await fetch('http://localhost:3000/api/auth/check-session', {
+                const res = await fetch('https://travel-hub-1.onrender.com/api/auth/check-session', {
                     method: 'GET',
                     credentials: 'include'
                 });
@@ -221,7 +221,7 @@
 
         async function logout() {
             try {
-                const res = await fetch('http://localhost:3000/api/auth/logout', {
+                const res = await fetch('https://travel-hub-1.onrender.com/api/auth/logout', {
                     method: 'POST',
                     credentials: 'include'
                 });
