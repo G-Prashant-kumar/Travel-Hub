@@ -6,7 +6,7 @@ document.getElementById('signupForm').addEventListener('submit', async (e) => {
     const password = document.getElementById('signup-password').value;
     const confirmPassword = document.getElementById('signup-confirm-password').value;
 
-    const res = await fetch('/api/auth/signup', {
+    const res = await fetch('https://travel-hub-1.onrender.com/api/auth/signup', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ name, email, password, confirmPassword })

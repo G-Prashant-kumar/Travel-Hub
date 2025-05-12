@@ -1,9 +1,9 @@
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     const loginForm = document.getElementById('loginForm');
     const signupForm = document.getElementById('signupForm');
 
     if (loginForm) {
-        loginForm.addEventListener('submit', function(event) {
+        loginForm.addEventListener('submit', function (event) {
             event.preventDefault();
             const email = document.getElementById('login-email').value;
             const password = document.getElementById('login-password').value;
@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     if (signupForm) {
-        signupForm.addEventListener('submit', function(event) {
+        signupForm.addEventListener('submit', function (event) {
             event.preventDefault();
             const name = document.getElementById('signup-name').value;
             const email = document.getElementById('signup-email').value;

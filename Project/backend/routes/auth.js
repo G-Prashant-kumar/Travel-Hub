@@ -24,13 +24,24 @@ router.post('/signup', async (req, res) => {
 
     try {
         const user = new User({ name, email, password });
-        await user.save();
-        res.status(201).json({ msg: "User registered successfully" });
+        try {
+            await user.save();
+            res.status(201).json({ msg: "User registered successfully" });
+        }
+        catch (error) {
+            console.error('Error saving user:', error); // Log the error for better debugging
+            if (error.code === 11000) { // Duplicate key error
+                return res.status(200).json({ msg: "Email already registered" });
+            }
+            return res.status(500).json({ msg: "Server error" });
+        }
     } catch (error) {
-        console.error(error); // Log the error for further debugging
+        console.error(error);
+        // Log the error for further debugging
         res.status(500).json({ msg: "Server error" });
     }
 });
+
 
 
 // Login route
@@ -80,6 +91,38 @@ router.get('/check-session', (req, res) => {
         res.status(200).json({ loggedIn: true });
     } else {
         res.status(200).json({ loggedIn: false });
+    }
+});
+
+router.post('/signup', async (req, res) => {
+    console.log(req.body);
+    console.log("hijsd");
+    const { name, email, password, confirmPassword } = req.body;
+
+    if (password !== confirmPassword) {
+        return res.status(400).json({ msg: "Passwords do not match" });
+    }
+
+    const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/;
+    if (!passwordRegex.test(password)) {
+        return res.status(400).json({ msg: "Password does not meet requirements" });
+    }
+
+    try {
+        const existingUser = await User.findOne({ email });
+        if (existingUser) {
+            return res.status(400).json({ msg: "Email already registered" });
+        }
+
+        const hashedPassword = await bcrypt.hash(password, 10);
+
+        const user = new User({ name, email, password: hashedPassword });
+        await user.save();
+
+        res.status(201).json({ msg: "User registered successfully" });
+    } catch (error) {
+        console.error('Signup error:', error); // better logging
+        res.status(500).json({ msg: "Server error", error: error.message });
     }
 });
 

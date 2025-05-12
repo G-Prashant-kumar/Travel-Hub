@@ -14,11 +14,11 @@ const app = express();
 
 // Use CORS middleware
 app.use(cors({
-    origin: 'http://127.0.0.1:5500',
+    origin: 'travel-70idk5zdl-prashants-projects-cd12f6f8.vercel.app', // Replace with your frontend URL
     credentials: true
 }));
+app.use(express.json());
 
-app.use(bodyParser.json());
 app.use(cookieParser());
 app.use(express.static('public'));
 
@@ -40,4 +40,4 @@ app.use('/api/bookings', bookingRoutes);
 app.use('/api/hotelBookings', hotelBookingRoutes);  // Add this line
 
 const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => console.log(`Server running at http://localhost:${PORT}`));
+app.listen(PORT)

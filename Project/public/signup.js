@@ -6,7 +6,7 @@ document.getElementById('signupForm').addEventListener('submit', async (e) => {
     const password = document.getElementById('signup-password').value;
     const confirmPassword = document.getElementById('signup-confirm-password').value;
 
-    const errorMessage = document.getElementById('error-message');  // Assuming you add a div for error messages
+    const errorMessage = document.getElementById('error-message');
 
     // Clear previous error messages
     if (errorMessage) {
@@ -14,7 +14,7 @@ document.getElementById('signupForm').addEventListener('submit', async (e) => {
     }
 
     try {
-        const res = await fetch('http://localhost:3000/api/auth/signup', {
+        const res = await fetch('https://travel-hub-1.onrender.com/api/auth/signup', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             credentials: 'include',
@@ -24,19 +24,24 @@ document.getElementById('signupForm').addEventListener('submit', async (e) => {
         const data = await res.json();
 
         if (res.ok) {
-            alert(data.msg); // Success message
-            window.location.href = 'login.html'; // Redirect to login page
+            alert(data.msg);
+            window.location.href = 'login.html';
         } else {
-            // Display error messages dynamically
+            if (data.msg === "Email already registered") {
+                window.location.href = 'signup.html';
+                alert("This email is already registered. Please use a different one.");
+
+            }
+
             if (errorMessage) {
                 errorMessage.innerHTML = data.msg || 'An error occurred. Please try again.';
                 errorMessage.style.color = 'red';
             }
         }
     } catch (error) {
-        console.error('Error:', error);
+        // Only handle network or unexpected errors
         if (errorMessage) {
-            errorMessage.innerHTML = 'An error occurred. Please try again.';
+            errorMessage.innerHTML = 'A network error occurred. Please try again later.';
             errorMessage.style.color = 'red';
         }
     }
