@@ -14,7 +14,7 @@ const app = express();
 
 // Use CORS middleware
 app.use(cors({
-    origin: 'travel-70idk5zdl-prashants-projects-cd12f6f8.vercel.app', // Replace with your frontend URL
+    origin: 'https://travel-hub-git-main-prashants-projects-cd12f6f8.vercel.app', // Replace with your frontend URL
     credentials: true
 }));
 app.use(express.json());
