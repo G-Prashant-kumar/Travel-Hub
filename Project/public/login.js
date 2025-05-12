@@ -13,9 +13,9 @@ document.getElementById('loginForm').addEventListener('submit', async (e) => {
         });
 
         const data = await res.json();
-        alert(data.msg);
 
         if (res.ok) {
+            alert(data.msg);
             localStorage.setItem('token', data.token);
 
             const intendedUrl = localStorage.getItem('intendedUrl');
@@ -26,10 +26,10 @@ document.getElementById('loginForm').addEventListener('submit', async (e) => {
                 window.location.href = 'index.html';
             }
         } else {
-            alert('An error occurred. Please try again.');
+            alert(data.msg || 'Invalid email or password.');
         }
     } catch (error) {
-        console.error('Error:', error);
-        alert('An error occurred. Please try again.');
+        // Remove console log to avoid dev console warnings
+        alert('Network error. Please try again later.');
     }
 });
