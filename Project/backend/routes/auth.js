@@ -88,6 +88,7 @@ router.post('/logout', (req, res) => {
 // Check session status route
 router.get('/check-session', (req, res) => {
     if (req.session.userId) {
+        
         res.status(200).json({ loggedIn: true });
     } else {
         res.status(200).json({ loggedIn: false });

@@ -14,7 +14,7 @@
             <ul class="nav-links">
                 <li><a href="#servicesContainer">Our Services</a></li>
                 <li><a href="#exclusivesContainer">Exclusives</a></li>
-                <li><a href="#trendingContainer">Trending Places</a></li>
+                <li><a href="#trendingContainer">Trending places</a></li>
                 <li><a href="#storiesContainer">Traveller Stories</a></li>
             </ul>
             <div class="nav-buttons" id="auth-buttons">
@@ -149,7 +149,8 @@
 
                 const data = await res.json();
 
-                if (!data.loggedIn) {
+                const token = localStorage.getItem('token');
+                if (!token) {
                     localStorage.setItem('intendedUrl', redirectUrl);
                     window.location.href = 'login.html';
                 } else {
@@ -202,15 +203,19 @@
         animateText();
 
         async function updateAuthButtons() {
+            const token = localStorage.getItem('token');
+            const authButtons = document.getElementById('auth-buttons');
+
+            if (!token) return; // not logged in
+
             try {
                 const res = await fetch('https://travel-hub-1.onrender.com/api/auth/check-session', {
                     method: 'GET',
-                    credentials: 'include'
+                    headers: { 'Authorization': `Bearer ${token}` },
                 });
 
                 const data = await res.json();
 
-                const authButtons = document.getElementById('auth-buttons');
                 if (data.loggedIn) {
                     authButtons.innerHTML = '<a href="previousBookings.html" class="nav-btn">Previous Bookings</a><a href="#" class="nav-btn" onclick="logout()">Log Out</a>';
                 }
@@ -218,6 +223,7 @@
                 console.error('Error:', error);
             }
         }
+
 
         async function logout() {
             try {

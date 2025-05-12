@@ -13,6 +13,7 @@ document.getElementById('loginForm').addEventListener('submit', async (e) => {
         });
 
         const data = await res.json();
+        console.log(data.token);
 
         if (res.ok) {
             alert(data.msg);
